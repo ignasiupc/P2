@@ -1,6 +1,9 @@
 PAV - P2: detección de actividad vocal (VAD)
 ============================================
 
+Ignasi Fernández Bilbeny i Marc Elvira Pallardó
+-----------------------------------------------
+
 Esta práctica se distribuye a través del repositorio GitHub [Práctica 2](https://github.com/albino-pav/P2),
 y una parte de su gestión se realizará mediante esta web de trabajo colaborativo.  Al contrario que Git,
 GitHub se gestiona completamente desde un entorno gráfico bastante intuitivo. Además, está razonablemente
