@@ -139,11 +139,14 @@ Ejercicios
   continuación, una captura de `wavesurfer` en la que se vea con claridad la señal temporal, el contorno de
   potencia y la tasa de cruces por cero, junto con el etiquetado manual de los segmentos.
 
+Hem marcat les etiquetes quan escoltem silenci com a 'Silenci' i quan escoltem veu 'Voice'. Podem veure a la primera grafica l'amplitud de la senyal, a la segona les labels, a la tercera la potència del senyal i a la última el ZCR.
 
 - A la vista de la gráfica, indique qué valores considera adecuados para las magnitudes siguientes:
 
 	* Incremento del nivel potencia en dB, respecto al nivel correspondiente al silencio inicial, para
 	  estar seguros de que un segmento de señal se corresponde con voz.
+
+
 
 	* Duración mínima razonable de los segmentos de voz y silencio.
 
