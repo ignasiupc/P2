@@ -139,20 +139,25 @@ Ejercicios
   continuación, una captura de `wavesurfer` en la que se vea con claridad la señal temporal, el contorno de
   potencia y la tasa de cruces por cero, junto con el etiquetado manual de los segmentos.
 
-![alt text](image.png)
+![alt text](image-2.png)
 
-Hem marcat les etiquetes quan escoltem silenci com a 'Silenci' i quan escoltem veu 'Voice'. Podem veure a la primera grafica l'amplitud de la senyal, a la segona les labels, a la tercera la potència del senyal i a la última el ZCR.
+	Hem marcat les etiquetes quan escoltem silenci com a 'Sil' i quan escoltem veu 'Veu'. Podem veure a la primera grafica l'amplitud de la senyal, a la segona les labels, a la tercera la potència del senyal i a la última el ZCR.
 
 - A la vista de la gráfica, indique qué valores considera adecuados para las magnitudes siguientes:
 
 	* Incremento del nivel potencia en dB, respecto al nivel correspondiente al silencio inicial, para
 	  estar seguros de que un segmento de señal se corresponde con voz.
 
-
+	Com vam comentar a classe no se'ns escolta al principi de la grabació el so del clic del ratolí, ja que utilitzem el trackpad. 
+	Es pot apreciar que, en els punts on el senyal passa de silenci a veu (o a l’inrevés), el nivell varia aproximadament de –55 dB fins a uns –7 dB. Així doncs, si prenem com a referència aquests valors inicials i verifiquem que aquesta diferència es manté al llarg de tota la resta del senyal —com efectivament passa—, podem concloure que l’augment de nivell se situa entre 40 i 45 dB. Aquesta variació és típica d’un fragment de veu.
 
 	* Duración mínima razonable de los segmentos de voz y silencio.
 
+	Pel que fa a la durada mínima dels segments, aquesta hauria de correspondre al temps més breu que separa dues paraules consecutives. En el nostre cas, aquest interval és aproximadament de 200 ms.
+
 	* ¿Es capaz de sacar alguna conclusión a partir de la evolución de la tasa de cruces por cero?
+
+	Quant a la ZCR, aquesta ens ofereix una bona manera de detectar quan apareixen al·lòfons sords dins del senyal. En el nostre exemple utilitzàvem la frase: “Som l'Ignasi Fernández i el Marc Elvira i, la vida no ha de ser perfecte per ser meravellosa.” Tal com s’observa, s’hi produeixen pics corresponents a sons com la s de “som”, la f de “fa”, les t de “tot” (tot i que la segona presenta una sonorització lleu), la ix d’“això”, la p i la s de “potser”, la p i la s de “després”, i la p de “plou”.
 
 
 ### Desarrollo del detector de actividad vocal
