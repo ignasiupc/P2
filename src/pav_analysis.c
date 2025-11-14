@@ -1,33 +1,46 @@
 #include <math.h>
 #include "pav_analysis.h"
 
+
 float compute_power(const float *x, unsigned int N) {
-    float power = 0.0;
+    
+    float sum = 0.0;
     for (unsigned int n = 0; n < N; n++) {
-        power += x[n] * x[n];
+        sum += x[n] * x[n];
     }
-    power /= N;
-    return 10*log10(power);
+    return 10.0 * log10f(sum / N); 
 }
 
 float compute_am(const float *x, unsigned int N) {
-    float am = 0.0;
+    float sum = 0.0;
     for (unsigned int n = 0; n < N; n++) {
-        am += fabs(x[n]);
+        sum += fabsf(x[n]);
     }
-    am /= N;
-    return am;
-}
+    return sum / N;
+}   
 
 float compute_zcr(const float *x, unsigned int N, float fm) {
-    float zcr = 0.0;
+    int crossings = 0;
     for (unsigned int n = 1; n < N; n++) {
-        if ((x[n-1] > 0 && x[n] < 0) || (x[n-1] < 0 && x[n] > 0)) {
-            zcr += 1.0;
+        if ((x[n] >= 0 && x[n-1] < 0) || (x[n] < 0 && x[n-1] >= 0)) {
+            crossings++;
         }
     }
-    zcr /= (N - 1);
-    zcr *= fm;
-    return zcr;
+    return (fm / 2.0f) * ((float)crossings / (N - 1));
 }
+float compute_power_hamming(const float *x, unsigned int N, float fm) {
+    float sum = 0.0f;
+    float sum_w2 = 0.0f;
+
+    // Apply Hamming window and compute power
+    for (unsigned int n = 0; n < N; n++) {
+        float w = 0.54f - 0.46f * cosf((2.0f * M_PI * n) / (N - 1));
+        sum += (x[n] * w) * (x[n] * w);
+        sum_w2 += w * w;
+    }
     
+    if (sum_w2 == 0.0f) {
+        return 2; 
+    }
+    return 10.0f * log10f(sum / sum_w2);
+}
