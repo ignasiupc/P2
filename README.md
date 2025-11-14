@@ -178,10 +178,21 @@ Ejercicios
 - Complete el código de los ficheros de la práctica para implementar un detector de actividad vocal en
   tiempo real tan exacto como sea posible. Tome como objetivo la maximización de la puntuación-F `TOTAL`.
 
+  Tot i que es poden consultar tots els fitxers al directori corresponent, a continuació es presenten els fitxers principals que s’han modificat per assolir la màxima puntuació F-Total.  
+  Considerem que el codi és prou autocontingut i que els aclariments essencials ja estan recollits mitjançant comentaris.
+
+  · Fitxer "vad.h"
+  · Fitxer "vad.c"
+  · Fitxer "pav_analysis.h"
+  · Fitxer "pav_analysis.c"
+  · Fitxer "main_vad.c"
+
 - Inserte una gráfica en la que se vea con claridad la señal temporal, el etiquetado manual y la detección
   automática conseguida para el fichero grabado al efecto. 
 
 - Explique, si existen. las discrepancias entre el etiquetado manual y la detección automática.
+
+El resultat obtingut mostra que la discrepància entre l’etiquetatge manual i la detecció automàtica és mínima. Aquest fet ha estat inesperadament positiu, ja que inicialment preveiem una distància més gran entre ambdues mesures. Sembla que diversos elements hi han contribuït: d’una banda, el senyal de veu comença pràcticament just després d’iniciar-se la gravació i, de l’altra, el soroll ambiental —classificat com a silenci en absència de veu— es manté estable al llarg del registre. A això s’hi afegeix que el valor per defecte d’alpha0 utilitzat resulta prou adequat. La combinació d’aquests factors explica els bons resultats obtinguts.
 
 - Evalúe los resultados sobre la base de datos `db.v4` con el script `vad_evaluation.pl` e inserte a 
   continuación las tasas de sensibilidad (*recall*) y precisión para el conjunto de la base de datos (sólo
