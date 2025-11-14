@@ -141,11 +141,11 @@ Ejercicios
 
 ![alt text](image-2.png)
 
-	Viem que l'audio que vam generar a la pràctica 1 no tenia massa bona calitat i s'escoltava molt soroll, així que hem decidit grabar el mateix àudio amb un microfon millor per poder fer una bona interpretació de les gràfiques. A continuació podem observar el WaveSurfer del nou àudio amb les gràfiques corresponents. Observem que els senyals s'assemblen, quelcom lògic i, a més a més, ara les gràfiques es poden llegir millor, deixant-nos identificar bé quan hi ha veu i quan hi ha silenci.
+	Veiem que l'audio que vam generar a la pràctica 1 no tenia massa bona calitat i s'escoltava molt soroll, així que hem decidit grabar el mateix àudio amb un microfon millor per poder fer una bona interpretació de les gràfiques. A continuació podem observar el WaveSurfer del nou àudio amb les gràfiques corresponents. Observem que els senyals s'assemblen, quelcom lògic i, a més a més, ara les gràfiques es poden llegir millor, deixant-nos identificar bé quan hi ha veu i quan hi ha silenci.
 
-![alt text](image.png)
+![alt text](image-1.png)
 
-	Hem marcat les etiquetes quan escoltem silenci com a 'Sil' i quan escoltem veu 'Veu'. Podem veure a la primera grafica l'amplitud de la senyal, a la segona les labels, a la tercera la potència del senyal i a la última el ZCR. (Si ens hi fixem, en els dos audios ho hem etiquetat igual però ara les separaciosn son diferents)
+	Hem marcat les etiquetes quan escoltem silenci com a 'S' i quan escoltem veu 'V'. Podem veure a la primera grafica l'amplitud de la senyal, a la segona les labels, a la tercera la potència del senyal i a la última el ZCR. (Si ens hi fixem, en els dos audios ho hem etiquetat igual però ara les separaciosn son diferents)
 
 
 - A la vista de la gráfica, indique qué valores considera adecuados para las magnitudes siguientes:
