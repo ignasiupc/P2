@@ -154,7 +154,7 @@ Ejercicios
 	  estar seguros de que un segmento de señal se corresponde con voz.
 
 	Com vam comentar a classe no se'ns escolta al principi de la grabació el so del clic del ratolí, ja que utilitzem el trackpad. 
-	Es pot apreciar que, en els punts on el senyal passa de silenci a veu (o a l’inrevés), el nivell varia aproximadament de 0 dB fins a uns 45 dB. Així doncs, si prenem com a referència aquests valors inicials i verifiquem que aquesta diferència es manté al llarg de tota la resta del senyal —com efectivament passa—, podem concloure que l’augment de nivell se situa entre 40 i 45 dB. Aquesta variació és típica d’un fragment de veu.
+	Es pot apreciar que, en els punts on el senyal passa de silenci a veu (o a l’inrevés), el nivell varia aproximadament de 0 dB fins a uns 45 dB. Així doncs, si prenem com a referència aquests valors inicials i verifiquem que aquesta diferència es manté al llarg de tota la resta del senyal —com efectivament passa—, podem concloure que l’augment de nivell se situa entre 40 i 45 dB.
 
 	* Duración mínima razonable de los segmentos de voz y silencio.
 
@@ -164,7 +164,7 @@ Ejercicios
 
 	En quant a la ZCR, aquesta ens ofereix una bona manera de detectar quan apareixen al·lòfons sords dins del senyal. En el nostre exemple utilitzàvem la frase: “Som l'Ignasi Fernández i el Marc Elvira i, la vida no ha de ser perfecte per ser meravellosa.” 
 	
-	Tal com s’observa en la tercera gràfica, la taxa de creuaments per zero presenta pics puntuals que coincideixen amb l’aparició de consonants sordes al llarg de la frase. El primer augment notable correspon a la s inicial de “Som”, que genera un increment clar de la ZCR. A continuació, apareixen oscil·lacions més discretes associades a les s de “Ignasi” i “Fernández”, que també presenten fricació sorda. 
+	Tal com s’observa en la tercera gràfica, la taxa de creuaments per zero presenta pics puntuals que coincideixen amb l’aparició de consonants sordes al llarg de la frase. El primer augment notable correspon a la s inicial de “Som”, que genera un increment clar de la ZCR. A continuació, apareixen oscil·lacions més discretes associades a les s de “Ignasi” i “Fernández”, que també presenten fricació sonora. 
 	
 	També s’identifiquen elevacions de ZCR a la zona on es produeixen les consonants sordes de “Marc” (especialment la /k/ final). Més endavant, la p i la f de “perfecte” generen pics més pronunciats, pròxims al tram de “per”, on la p inicial torna a elevar la ZCR de manera clara. 
 	
