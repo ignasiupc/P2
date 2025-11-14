@@ -2,14 +2,35 @@
 #define _VAD_H
 #include <stdio.h>
 
-/* TODO: add the needed states */
-typedef enum {ST_UNDEF=0, ST_SILENCE, ST_VOICE, ST_INIT} VAD_STATE;
+/* States for Voice Activity Detection Finite State Automaton:
+   - ST_UNDEF: Undefined state (used when not enough information)
+   - ST_SILENCE: Confirmed silence segment
+   - ST_VOICE: Confirmed voice segment
+   - ST_INIT: Initial state (before first frame processing)
+   - ST_MAYBE_VOICE: Transitional state when power increases (silence → voice)
+   - ST_MAYBE_SILENCE: Transitional state when power decreases (voice → silence)
+*/
+typedef enum {
+  ST_UNDEF=0, 
+  ST_SILENCE, 
+  ST_VOICE, 
+  ST_INIT,
+  ST_MAYBE_VOICE,
+  ST_MAYBE_SILENCE
+} VAD_STATE;
 
 /* Return a string label associated to each state */
 const char *state2str(VAD_STATE st);
 
-/* TODO: add the variables needed to control the VAD 
-   (counts, thresholds, etc.) */
+/* Control variables for VAD state machine:
+   - state: current state of the FSM
+   - sampling_rate: audio sampling rate
+   - frame_length: number of samples per frame
+   - last_feature: last computed feature value (for debugging)
+   - p0, p1: power thresholds (silence/voice boundaries)
+   - frame_counter: counts consecutive frames in transitional states
+   - min_duration: minimum number of frames to confirm state change
+*/
 
 typedef struct {
   VAD_STATE state;
@@ -17,6 +38,8 @@ typedef struct {
   unsigned int frame_length;
   float last_feature; /* for debuggin purposes */
   float p0, p1; /* thresholds */
+  unsigned int frame_counter; /* counter for state transitions */
+  unsigned int min_duration; /* minimum frames to confirm state change */
 } VAD_DATA;
 
 /* Call this function before using VAD: 
