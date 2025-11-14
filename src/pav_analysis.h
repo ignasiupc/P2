@@ -1,6 +1,9 @@
 #ifndef PAV_ANALYSIS_H
 #define PAV_ANALYSIS_H
+
+#ifndef M_PI
 #define M_PI 3.14159265358979323846f
+#endif
 
 float compute_power(const float *x, unsigned int N);
 float compute_am(const float *x, unsigned int N);
