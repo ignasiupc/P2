@@ -134,41 +134,89 @@ VAD_STATE vad(VAD_DATA *vad_data, float *x, float alpha1) {
   }
 
   switch (vad_data->state) {
-  case ST_INIT:
-    vad_data->p0 = f.p;
-    vad_data->p1 = vad_data->p0 + alpha1;
-    vad_data->state = ST_SILENCE;
-    break;
-
-  case ST_SILENCE:
-    if (f.p > vad_data->p1){
-      vad_data->state = ST_VOICE;
-    }
-      
-    break;
-
-  case ST_VOICE:
-    if (f.p < vad_data->p0){
-      vad_data->state = ST_SILENCE;
-    }
-    break;
-
-  case ST_UNDEF:
     /* TODO: Implement your own logic for the undefined state */
-    if (f.p > vad_data->p1) {
-      vad_data->state = ST_VOICE;
-    } else if (f.p < vad_data->p0) {
-      vad_data->state = ST_SILENCE;
-    }
-    
+   case ST_INIT:
+      vad_data->noise_sum += f.p;
+      vad_data->noise_zcr_sum += f.zcr;
+      vad_data->init_count++;
+
+      if (vad_data->init_count >= 10) {  // Usamos los primeros 10 frames
+        vad_data->noise_level = vad_data->noise_sum / vad_data->init_count;
+        vad_data->noise_zcr = vad_data->noise_zcr_sum / vad_data->init_count;
+        /* Calculamos umbrales con pesos diferenciados para cada estado */
+        vad_data->k_voice = vad_data->noise_level + 2.41 * vad_data->p0;
+        vad_data->k_silence = vad_data->noise_level + 0.985 *vad_data->p0; ;
+        vad_data->state = ST_SILENCE;
+        if (f.p > vad_data->k_voice && f.zcr > 0.015) {
+          vad_data->state = ST_VOICE;
+        }
+      }
+      if(f.p > -10){
+        return ST_VOICE;
+      }
+      // Aquí no debes retornar directamente - deja que continúe hasta el final
+      if (vad_data->state == ST_INIT) {
+        return ST_SILENCE;
+      }
+      break; // Now this break will execute
+      case ST_SILENCE:
+      // Se requiere que la potencia sea alta Y que la ZCR sea mayor que un umbral
+      // In ST_SILENCE case:
+      if (f.p > vad_data->k_voice - 0.95 && f.zcr > 0.088) {
+        vad_data->count_voice++;
+        if (vad_data->count_voice >= 1) {  //Esta en 1, es decir no hangover, si pongo no va.
+          vad_data->state = ST_VOICE;
+          vad_data->count_voice = 0;
+          printf("silence to voice: %f %f\n", f_norm, f_norm_real);
+        }
+      } else {
+        vad_data->count_voice = 0;
+      }
+
+        break;
+      case ST_VOICE:
+      /* Ajuste para mejor balance entre recall y precisión */
+      if (f.p < vad_data->k_silence || (f.p < vad_data->k_silence + 0.95 && f.zcr < 0.048)) {
+        vad_data->count_silence++;
+        if (vad_data->count_silence >= 7) {  
+          vad_data->state = ST_SILENCE;
+          vad_data->count_silence = 0;
+          printf("voice to silence: %f %f\n", f_norm, f_norm_real);
+        }
+      } else {
+        vad_data->count_silence = 0;
+      }
+       // For voice-to-silence transitions with high confidence
+        if (f_norm < 0.45) {  // Very low normalized power
+          // Faster transition with less hangover
+          if (vad_data->count_silence >= 5) {  // Reduced hangover
+            vad_data->state = ST_SILENCE;
+            vad_data->count_silence = 0;
+            printf("voice to silence f_norm 0.45: %f %f\n", f_norm, f_norm_real);
+          }
+        }
+
+        if (f_norm < 0.25) {  // Very low normalized power
+          // Faster transition with less hangover
+          if (vad_data->count_silence >= 3) {  // Reduced hangover
+            vad_data->state = ST_SILENCE;
+            vad_data->count_silence = 0;
+            printf("voice to silence f_norm 0.25: %f %f\n", f_norm, f_norm_real);
+          }
+        }
+        if (f_norm < 0.2) {  // Very low normalized power
+          // Faster transition with less hangover
+          if (vad_data->count_silence >= 1) {  // Reduced hangover
+            vad_data->state = ST_SILENCE;
+            vad_data->count_silence = 0;
+            printf("voice to silence f_norm 0.2: %f %f\n", f_norm, f_norm_real);
+          }
+        }
+
+      break;
+    case ST_UNDEF:
     break;
   }
-
-  if (vad_data->state == ST_SILENCE ||
-      vad_data->state == ST_VOICE)
-    return vad_data->state;
-  else
-    return ST_UNDEF;
 }
 
 void vad_show_state(const VAD_DATA *vad_data, FILE *out) {
