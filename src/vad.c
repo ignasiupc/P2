@@ -32,7 +32,7 @@ typedef struct {
  * TODO: Delete and use your own features!
  */
 
-Features compute_features(const float *x, int N) {
+Features compute_features(const float *x, int N, int fm) {
   /*
    * Input: x[i] : i=0 .... N-1 
    * Ouput: computed features
@@ -46,6 +46,8 @@ Features compute_features(const float *x, int N) {
   /*feat.zcr = feat.p = feat.am = (float) rand()/RAND_MAX;*/
 
   feat.p = compute_power(x, N);
+  feat.zcr = compute_zcr(x, N, fm);
+  feat.am = compute_am(x, N);
 
   return feat;
 }
@@ -59,6 +61,27 @@ VAD_DATA * vad_open(float rate) {
   vad_data->state = ST_INIT;
   vad_data->sampling_rate = rate;
   vad_data->frame_length = rate * FRAME_TIME * 1e-3;
+  /* Inicialización de parámetros adaptativos */
+  vad_data->noise_sum = 0.0;
+  vad_data->noise_zcr_sum = 0.0;  // Nuevo campo
+  vad_data->init_count = 0;
+  vad_data->noise_level = -100.0;  /* Valor inicial muy bajo */
+  vad_data->k_voice = -40.0;  
+  vad_data->k_silence = -50.0;
+  
+  vad_data->last_feature = 0.0;
+  vad_data->p0 = 5;  /* Valor por defecto de α, ya se cambia luego */
+  vad_data->count_voice = 0;
+  vad_data->count_silence = 0;  // Inicialización del hangover
+  vad_data->voice_segment_count = 0;
+  vad_data->total_voice_frames = 0;
+  vad_data->max_silence_in_voice = 0;
+  vad_data->adaptive_hangover = 5;  // Valor inicial
+    // In vad_open function
+  vad_data->max_power = 0.0;       // Start with reasonable values
+  vad_data->min_power = -100.0; 
+  vad_data->max_power_real = -60.0;       // Start with reasonable values
+  vad_data->min_power_real = -30.0; 
   return vad_data;
 }
 
@@ -88,8 +111,27 @@ VAD_STATE vad(VAD_DATA *vad_data, float *x, float alpha1) {
    * program finite state automaton, define conditions, etc.
    */
 
-  Features f = compute_features(x, vad_data->frame_length);
+  Features f = compute_features(x, vad_data->frame_length, vad_data->sampling_rate);
   vad_data->last_feature = f.p; /* save feature, in case you want to show */
+
+  // In vad function, after computing features
+  // Update min/max power values (with protection against extreme outliers)
+  if (f.p < vad_data->min_power) vad_data->min_power = f.p;
+  if (f.p > vad_data->max_power) vad_data->max_power = f.p;
+
+  // Calculate normalized power
+  float f_norm = 0.0;
+  if (vad_data->max_power > vad_data->min_power) {
+      f_norm = (f.p - vad_data->min_power) / (vad_data->max_power - vad_data->min_power);
+  }
+  if (f.p < vad_data->min_power_real) vad_data->min_power_real = f.p;
+  if (f.p > vad_data->max_power_real) vad_data->max_power_real = f.p;
+
+  // Calculate normalized power
+  float f_norm_real = 0.0;
+  if (vad_data->max_power_real > vad_data->min_power_real) {
+      f_norm_real = (f.p - vad_data->min_power_real) / (vad_data->max_power_real - vad_data->min_power_real);
+  }
 
   switch (vad_data->state) {
   case ST_INIT:
