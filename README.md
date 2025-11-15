@@ -141,11 +141,11 @@ Ejercicios
 
 ![alt text](image-2.png)
 
-	Veiem que l'audio que vam generar a la pràctica 1 no tenia massa bona calitat i s'escoltava molt soroll, així que hem decidit grabar el mateix àudio amb un microfon millor per poder fer una bona interpretació de les gràfiques. A continuació podem observar el WaveSurfer del nou àudio amb les gràfiques corresponents. Observem que els senyals s'assemblen, quelcom lògic i, a més a més, ara les gràfiques es poden llegir millor, deixant-nos identificar bé quan hi ha veu i quan hi ha silenci.
+Veiem que l'audio que vam generar a la pràctica 1 no tenia massa bona calitat i s'escoltava molt soroll, així que hem decidit grabar el mateix àudio amb un microfon millor per poder fer una bona interpretació de les gràfiques. A continuació podem observar el WaveSurfer del nou àudio amb les gràfiques corresponents. Observem que els senyals s'assemblen, quelcom lògic i, a més a més, ara les gràfiques es poden llegir millor, deixant-nos identificar bé quan hi ha veu i quan hi ha silenci.
 
 ![alt text](image-1.png)
 
-	Hem marcat les etiquetes quan escoltem silenci com a 'S' i quan escoltem veu 'V'. Podem veure a la primera grafica l'amplitud de la senyal, a la segona les labels, a la tercera la potència del senyal i a la última el ZCR. (Si ens hi fixem, en els dos audios ho hem etiquetat igual però ara les separaciosn son diferents)
+Hem marcat les etiquetes quan escoltem silenci com a 'S' i quan escoltem veu 'V'. Podem veure a la primera grafica l'amplitud de la senyal, a la segona les labels, a la tercera la potència del senyal i a la última el ZCR. (Si ens hi fixem, en els dos audios ho hem etiquetat igual però ara les separaciosn son diferents)
 
 
 - A la vista de la gráfica, indique qué valores considera adecuados para las magnitudes siguientes:
@@ -181,7 +181,7 @@ Ejercicios
   Tot i que es poden consultar tots els fitxers al directori corresponent, a continuació es presenten els fitxers principals que s’han modificat per assolir la màxima puntuació F-Total.  
   Considerem que el codi és prou autocontingut i que els aclariments essencials ja estan recollits mitjançant comentaris.
 
-  · Fitxer "vad.h"
+  * Fitxer "vad.h"
   
 ```c
 	#ifndef _VAD_H
@@ -257,7 +257,7 @@ Ejercicios
 	#endif
 ```
 
-· Fitxer "vad.c"
+* Fitxer "vad.c"
 
 ```c  
 	#include <math.h>
@@ -488,7 +488,7 @@ Ejercicios
 	}
 ```
 
-  · Fitxer "pav_analysis.h"
+  * Fitxer "pav_analysis.h"
 ```c
 	#ifndef PAV_ANALYSIS_H
 	#define PAV_ANALYSIS_H
@@ -501,7 +501,7 @@ Ejercicios
 
 	#endif	/* PAV_ANALYSIS_H	*/
 ```
-  · Fitxer "pav_analysis.c"
+  * Fitxer "pav_analysis.c"
 
 ```c
 	#include <math.h>
@@ -551,7 +551,7 @@ Ejercicios
 	}
 ```
   
-  · Fitxer "main_vad.c"
+  * Fitxer "main_vad.c"
 
 ```c
 	#include <stdio.h>
