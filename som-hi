@@ -1,4 +1,4 @@
-#! /usr/bin/bash
+#! /bin/bash
 
 for alpha1 in $(seq 10 0.1 12); do
 
