@@ -217,6 +217,8 @@ VAD_STATE vad(VAD_DATA *vad_data, float *x, float alpha1) {
     case ST_UNDEF:
     break;
   }
+  // Asegurar que la función devuelve siempre un estado (evita "control reaches end of non-void function")
+  return vad_data->state;
 }
 
 void vad_show_state(const VAD_DATA *vad_data, FILE *out) {
